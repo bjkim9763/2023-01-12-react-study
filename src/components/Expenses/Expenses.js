@@ -15,7 +15,7 @@ const Expenses = (props) => {
   const expenseItemContainer = (expenses) => {
     return expenses.map((expense) => (
       <ExpenseItem
-        keys={expense.id}
+        key={expense.id}
         title={expense.title}
         amount={expense.amount}
         date={expense.date}
@@ -32,9 +32,21 @@ const Expenses = (props) => {
         selected={filteredYear}
         onFilteredData={filteredDataHandler}
       />
-      {expenseItemContainer(filteredItems)}
+
+      {filteredItems.length === 0 ? (
+        <h2 className="expenses-list__fallback">Found no expenses.</h2>
+      ) : (
+        expenseItemContainer(filteredItems)
+      )}
+
+      {/* {filteredItems.length === 0 && <p>No expense found.</p>} */}
+
+      {/* {(() => {
+        if (filteredItems.length === 0) return <p>No expense found.</p>;
+        if (filteredItems.length !== 0)
+          return expenseItemContainer(filteredItems);
+      })()} */}
     </Card>
   );
 };
-
 export default Expenses;
